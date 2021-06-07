@@ -1,12 +1,12 @@
 # Standard Library Imports
 from abc import ABCMeta, abstractstaticmethod
-from database import Database
 import tkinter.messagebox as MessageBox
 
 # Local Libraries
-from clear import Entry
-from constants import MysqlConnect
+from util.clear import Entry
+from globals.constants import MysqlConnect
 from check import CheckSubjectName, CheckSubjectMarks, CheckSubjectId
+from db.database import Database
 
 class IDatabaseManagerProcess(meta=ABCMeta):
 	def __init__(self, connectorDetail:MysqlConnect):

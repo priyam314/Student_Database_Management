@@ -4,8 +4,8 @@ import tkinter.messagebox as MessageBox
 from smtplib import SMTP
 
 # Local libraries
-from generate import OTP
-from constants import MysqlConnect
+from util.generate import OTP
+from globals.constants import MysqlConnect
 
 class ICheck(meta=ABCMeta):
 	@abstractstaticmethod
@@ -84,13 +84,13 @@ class CheckEmail(ICheck):
 			server.sendmail(senderEmail, receiverEmail, message)
 		except SMTPResponseException as e:
 			error_code = e.smtp_code
-    		error_message = e.smtp_error
-    		MessageBox.showinfo("Error Code {}".format(error_code),
+			error_message = e.smtp_error
+			MessageBox.showinfo("Error Code {}".format(error_code),
     			"ERROR MSG: {}".format(error_message))
-    		return False
-    	finally:
-    		server.quit()
-    		return True
+			return False
+		finally:
+			server.quit()
+			return True
 
 class CheckAll(ICheck):
 	def isOk(self, *args)->bool:

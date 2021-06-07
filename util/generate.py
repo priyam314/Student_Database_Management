@@ -1,7 +1,7 @@
-from abc import ABCMeta, absrtactstaticmethod
+from abc import ABCMeta, abstractstaticmethod
 
 class IGenerator(meta=ABCMeta):
-	@absrtactstaticmethod
+	@abstractstaticmethod
 	def generate(self):
 		pass
 
@@ -10,7 +10,7 @@ class OTP(IGenerator):
 		string:str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 		otp:str = ""
 		length:int = len(string)
-		for i in range(5) :
-	    	otp += string[math.floor(random.random() * length)]
+		for i in range(5):
+			otp += string[math.floor(random.random() * length)]
 		return otp
 

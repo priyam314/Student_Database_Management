@@ -1,5 +1,5 @@
 # Standard Library Imports
-from tkinter import Frame,
+from tkinter import Frame, Label, Entry, Button
 import tkinter.messagebox as MessageBox
 from tkinter import ttk
 import re
@@ -11,9 +11,9 @@ from abc import ABCMeta, abstractstaticmethod
 import mysql.connector as mysql
 
 # Local Libraries
-import workspaceAdmin
-from constants import *
-from auth import AuthLogin, AuthRegister
+import workspace.adminWindow
+from globals.constants import *
+from user.auth import AuthLogin, AuthRegister
 
 mc = MysqlConnect()
 
@@ -45,17 +45,17 @@ class EntryWindow:
 		# Frames
 
 		self.frame1 = Frame(self.root)
-					.grid(row=0,column=0,sticky="ewsn")
+		self.frame1.grid(row=0,column=0,sticky="ewsn")
 		self.frame1.columnconfigure(0,weight=1)
 		self.frame1.rowconfigure(0,weight=1)
 
 		self.frame2 = Frame(self.root,background=BackgroundColor.background)
-					.grid(row=1, column=0, sticky="ewsn")
+		self.frame2.grid(row=1, column=0, sticky="ewsn")
 		self.frame2.columnconfigure(0,weight=1)
 		self.frame2.rowconfigure(0,weight=1)
 
 		self.frame3 = Frame(self.root,background=BackgroundColor.background)
-					.grid(row=2, column=0, sticky="ewsn")
+		self.frame3.grid(row=2, column=0, sticky="ewsn")
 		self.frame3.columnconfigure(0,weight=1)
 		self.frame3.rowconfigure(0,weight=1)
 
@@ -64,7 +64,7 @@ class EntryWindow:
 		self.AuthenticationLabel = Label(self.frame1, 
 			text="Login/Register",
 			font=('bold',16),fg="#000000",bg=BackgroundColor.background)
-		.grid(row=0, column=0, sticky="ewsn")
+		self.AuthenticationLabel.grid(row=0, column=0, sticky="ewsn")
 
 		# Tab Notebook
 
@@ -87,21 +87,21 @@ class EntryWindow:
 
 		self.usernameLabelLogin = Label(self.tabLogin, text="Username",
 			font=('bold',10),fg="#000000",bg=BackgroundColor.background)
-		.grid(row=0, column=0, sticky="ewsn",padx=5,pady=29)
+		self.usernameLabelLogin.grid(row=0, column=0, sticky="ewsn",padx=5,pady=29)
 
 		self.passwordLabelLogin = Label(self.tabLogin, text="Password",
 			font=('bold',10),fg="#000000",bg=BackgroundColor.background)
-		.grid(row=1, column=0, sticky="ewsn",padx=5,pady=5)
+		self.passwordLabelLogin.grid(row=1, column=0, sticky="ewsn",padx=5,pady=5)
 
 		# Entry
 
 		self.usernameEntryLogin = Entry(self.tabLogin, font=('bold',10),
 			fg=EntryColor.entryText,bg=EntryColor.background)
-		.grid(row=0, column=1, sticky="ewsn",padx=5,pady=29)
+		self.usernameEntryLogin.grid(row=0, column=1, sticky="ewsn",padx=5,pady=29)
 
 		self.passwordEntryLogin = Entry(self.tabLogin, font=('bold',10),
 			fg=EntryColor.entryText,bg=EntryColor.background, show="*")
-		.grid(row=1, column=1, sticky="ewsn",padx=5,pady=5)
+		self.passwordEntryLogin.grid(row=1, column=1, sticky="ewsn",padx=5,pady=5)
 
 		# SIGN UP
 
@@ -109,45 +109,45 @@ class EntryWindow:
 
 		self.fullnameLabel = Label(self.tabSignup, text="Full Name",
 			font=('bold',10),fg="#000000",bg=BackgroundColor.background)
-		.grid(row=0, column=0, sticky="ew",padx=5,pady=5)
+		self.fullnameLabel.grid(row=0, column=0, sticky="ew",padx=5,pady=5)
 
 		self.usernameLabel = Label(self.tabSignup, text="Username",
 			font=('bold',10),fg="#000000",bg=BackgroundColor.background)
-		.grid(row=1, column=0, sticky="ew",padx=5,pady=5)
+		self.usernameLabel.grid(row=1, column=0, sticky="ew",padx=5,pady=5)
 
 		self.emailLabel = Label(self.tabSignup, text="Email",
 			font=('bold',10),fg="#000000",bg=BackgroundColor.background)
-		.grid(row=2, column=0, sticky="ew",padx=5,pady=5)
+		self.emailLabel.grid(row=2, column=0, sticky="ew",padx=5,pady=5)
 
 		self.passwordLabel = Label(self.tabSignup, text="Password",
 			font=('bold',10),fg="#000000",bg=BackgroundColor.background)
-		.grid(row=3, column=0, sticky="ew",padx=5,pady=5)
+		self.passwordLabel.grid(row=3, column=0, sticky="ew",padx=5,pady=5)
 
 		self.repasswordLabel = Label(self.tabSignup, text="Re Enter Password",
 			font=('bold',10),fg="#000000",bg=BackgroundColor.background)
-		.grid(row=4, column=0, sticky="ew",padx=5,pady=5)
+		self.repasswordLabel.grid(row=4, column=0, sticky="ew",padx=5,pady=5)
 
 		# Entry
 
 		self.fullnameEntry = Entry(self.tabSignup, font=('bold',10),
 			fg=EntryColor.entryText,bg=EntryColor.background)
-		.grid(row=0, column=1, sticky="ew",padx=5,pady=5)
+		self.fullnameEntry.grid(row=0, column=1, sticky="ew",padx=5,pady=5)
 
 		self.usernameEntry = Entry(self.tabSignup, font=('bold',10),
 			fg=EntryColor.entryText,bg=EntryColor.background)
-		.grid(row=1, column=1, sticky="ew",padx=5,pady=5)
+		self.usernameEntry.grid(row=1, column=1, sticky="ew",padx=5,pady=5)
 
 		self.emailEntry = Entry(self.tabSignup, font=('bold',10),
 			fg=EntryColor.entryText,bg=EntryColor.background)
-		.grid(row=2, column=1, sticky="ew",padx=5,pady=5)
+		self.emailEntry.grid(row=2, column=1, sticky="ew",padx=5,pady=5)
 
 		self.passwordEntry = Entry(self.tabSignup, font=('bold',10),
 			fg=EntryColor.entryText,bg=EntryColor.background, show="*")
-		.grid(row=3, column=1, sticky="ew",padx=5,pady=5)
+		self.passwordEntry.grid(row=3, column=1, sticky="ew",padx=5,pady=5)
 
 		self.repasswordEntry = Entry(self.tabSignup, font=('bold',10),
 			fg=EntryColor.entryText,bg=EntryColor.background, show="*")
-		.grid(row=4, column=1, sticky="ew",padx=5,pady=5)
+		self.repasswordEntry.grid(row=4, column=1, sticky="ew",padx=5,pady=5)
 
 		# Button
 
@@ -228,16 +228,19 @@ class EntryWindow:
 		if (currentTab=="Login"):
 			if (AuthLogin(mc).authenticate(
 				username = self.usernameEntryLogin.get(),
-				passwd = self.passwordEntryLogin.get()):
-				# initialize workspaceCRUD 
+				passwd = self.passwordEntryLogin.get())):
+				# initialize workspaceCRUD
+				pass 
+
 		else:
 			if (AuthRegister(mc).authenticate(
 				username = self.usernameEntry.get(),
 				passwd = self.passwordEntry.get(),
 				fullname = self.fullnameEntry.get(),
 				repasswd = self.repasswordEntry.get(),
-				email = self.emailEntry,get())):
+				email = self.emailEntry.get())):
 				# initialize workspaceCRUD
+				pass
 
 	# def checkUsername(self, username):
 	# 	if (any(i in username for i in "!@#$%^&*()_+=-`~,./';<>?: ")):

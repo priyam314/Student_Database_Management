@@ -7,9 +7,9 @@ import tkinter.messagebox as MessageBox
 import mysql.connector as mysql
 
 # Local Libraries
-from constants import *
-from database import Database
-from databasemanager import UpdateManager, DestructManager, ConstructManager, RetrieveManager, DestructAllManager
+from globals.constants import *
+from db.database import Database
+from db.databasemanager import UpdateManager, DestructManager, ConstructManager, RetrieveManager, DestructAllManager
 
 myConnect = MysqlConnect()
 
@@ -84,46 +84,46 @@ class WorkspaceAdmin:
         # Entry
 
         self.e_ID = Entry(self.searchFrame,bg=EntryColor.background,
-            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,font=('bold')).grid(
-            row=0, column=1,pady=5,padx=5)
+            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,font=('bold'))
+        self.e_ID.grid(row=0, column=1,pady=5,padx=5)
 
         self.e_NAME = Entry(self.searchFrame,bg=EntryColor.background,
-            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,font=('bold')).grid(
-            row=1, column=1,pady=5,padx=5)
+            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,font=('bold'))
+        self.e_NAME.grid(row=1, column=1,pady=5,padx=5)
 
         self.e_NUMBER = Entry(self.searchFrame,bg=EntryColor.background,
-            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,font=('bold')).grid(
-            row=2, column=1,pady=5,padx=5)
+            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,font=('bold'))
+        self.e_NUMBER.grid(row=2, column=1,pady=5,padx=5)
 
         # Buttons
 
         self.insert = Button(self.changeFrame, text="insert", font=("italic", 10), 
-            bg=ButtonColor.background, width=6,command=lambda:ConstructManager(myConnect)
-            .do(idConstruct=self.e_ID.get(), nameConstruct=self.e_NAME.get(),
-                marksConstruct=self.e_NUMBER.get(), uniqueidConstruct=self.uniqid))
-            .grid(row=0,column=0,sticky=E+W+N+S,pady=5,padx=5)
+            bg=ButtonColor.background, width=6,command=lambda:ConstructManager(myConnect).do(
+            idConstruct=self.e_ID.get(), nameConstruct=self.e_NAME.get(),
+            marksConstruct=self.e_NUMBER.get(), uniqueidConstruct=self.uniqid)).grid(
+            row=0,column=0,sticky=E+W+N+S,pady=5,padx=5)
 
         self.delete = Button(self.changeFrame, text="delete", font=("italic", 10), 
-            bg=ButtonColor.background, command=lambda:DestructManager(myConnect)
-            .do(idDestruct=self.e_ID.get(), uniqueidDestruct=self.uniqid),width=6)
-            .grid(row=0,column=1,sticky=E+W+N+S,pady=5,padx=5)
+            bg=ButtonColor.background, command=lambda:DestructManager(myConnect).do(
+            idDestruct=self.e_ID.get(), uniqueidDestruct=self.uniqid),width=6).grid(
+            row=0,column=1,sticky=E+W+N+S,pady=5,padx=5)
 
         self.update = Button(self.changeFrame, text="update", font=("italic", 10), 
-            bg=ButtonColor.background, command=lambda:UpdateManager(myConnect)
-            .do(idAmend=self.e_ID.get(), nameAmend= self.e_NAME.get(), 
-                marksAmend= self.e_NUMBER.get(), uniqueidAmend= self.uniqid),width=6)
-            .grid(row=0,column=2,sticky=E+W+N+S,pady=5,padx=5)
+            bg=ButtonColor.background, command=lambda:UpdateManager(myConnect).do(
+            idAmend=self.e_ID.get(), nameAmend= self.e_NAME.get(), 
+            marksAmend= self.e_NUMBER.get(), uniqueidAmend= self.uniqid),width=6).grid(
+            row=0,column=2,sticky=E+W+N+S,pady=5,padx=5)
 
         self.get = Button(self.changeFrame, text="get", font=("italic", 10), 
-            bg=ButtonColor.background, command=lambda:RetrieveManager(myConnect)
-            .do(idRetrieve=self.e_ID, nameRetrieve=self.e_NAME, marksRetrieve=self.e_NUMBER,
-                uniqueidRetrieve=self.uniqid),width=6)
-            .grid(row=0, column=3,sticky=E+W+N+S,pady=5,padx=5)
+            bg=ButtonColor.background, command=lambda:RetrieveManager(myConnect).do(
+            idRetrieve=self.e_ID, nameRetrieve=self.e_NAME, marksRetrieve=self.e_NUMBER,
+            uniqueidRetrieve=self.uniqid),width=6).grid(
+            row=0, column=3,sticky=E+W+N+S,pady=5,padx=5)
 
         self.deleteall = Button(self.changeFrame, text="delete all", font=("italic", 10), 
-            bg=ButtonColor.background, command=lambda:DestructAllManager(myConnect)
-            .do(uniqueidDestructAll=self.uniqid),width=6)
-            .grid(row=0,column=4,sticky=E+W+N+S,pady=5,padx=5)
+            bg=ButtonColor.background, command=lambda:DestructAllManager(myConnect).do(
+            uniqueidDestructAll=self.uniqid),width=6).grid(
+            row=0,column=4,sticky=E+W+N+S,pady=5,padx=5)
             
     # def getRow(self):
     #     self.Id = self.e_ID.get()
