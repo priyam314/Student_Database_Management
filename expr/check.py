@@ -31,7 +31,7 @@ class CheckSubjectMarks(ICheck):
 
 class CheckSubjectId(ICheck):
 	def isOk(self, value:str)->bool:
-		if (id==""):
+		if (value==""):
 			MessageBox.showinfo("Id Status","Id field is required")
 			return False
 		return True

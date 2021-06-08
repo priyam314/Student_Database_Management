@@ -233,11 +233,12 @@ class EntryWindow:
 				username = self.username.get(),
 				passwd = self.password.get())):
 				# initialize workspaceCRUD
+				self.root.destroy()
 				ifndef = True
 				rootAdmin = Tk()
-				app = admin.AdminWindow(rootAdmin)
+				app = admin.AdminWindow(rootAdmin, UNIQID)
 				if ifndef:
-					self.root.destroy()
+					# self.root.destroy()
 					ifndef = False
 				rootAdmin.mainloop()
 

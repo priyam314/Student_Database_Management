@@ -1,7 +1,5 @@
 class Entry:
-	def __init__(self, *args):
-		pass
-	def clear(self):
+	def clear(self, *args):
 		for i in range(len(args)):
 			args[i].delete(0, 'end')
 			

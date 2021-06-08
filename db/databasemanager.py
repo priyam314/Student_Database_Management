@@ -21,11 +21,13 @@ class DatabaseManagerCheckDetails(IDatabaseManagerProcess):
 		pass
 
 class UpdateManager(DatabaseManagerCheckDetails):
+
 	def checkDetails(self, idAmend:str, nameAmend:str, marksAmend:str)->bool:
-		if (CheckSubjectId.isOk(idAmend) and CheckSubjectName.isOk(nameAmend) and 
-			CheckSubjectMarks.isOk(marksAmend)):
+		if (CheckSubjectId().isOk(value=idAmend) and CheckSubjectName().isOk(value=nameAmend) and 
+			CheckSubjectMarks().isOk(value=marksAmend)):
 			return True
 		return False
+
 	def do(self, idAmend:str, nameAmend:str, marksAmend:str, uniqueidAmend:str):
 		if (self.checkDetails(idAmend, nameAmend, marksAmend)):
 			with Database(self.connectorDetail) as con:
@@ -36,10 +38,12 @@ class UpdateManager(DatabaseManagerCheckDetails):
 			MessageBox.showinfo("Update Status","Updated Successfully")
 
 class DestructManager(DatabaseManagerCheckDetails):
+
 	def checkDetails(self, idDestruct:str)->bool:
-		if (CheckSubjectId.isOk(idDestruct)):
+		if (CheckSubjectId().isOk(value=idDestruct)):
 			return True
 		return False
+
 	def do(self,idDestruct:str, uniqueidDestruct:str):
 		if (self.checkDetails(idDestruct)):
 			with Database(self.connectorDetail) as con:
@@ -51,11 +55,13 @@ class DestructManager(DatabaseManagerCheckDetails):
 			MessageBox.showinfo("Delete Status", "Deleted Successfully")
 
 class ConstructManager(DatabaseManagerCheckDetails):
+
 	def checkDetails(self, idConstruct:str, nameConstruct:str, marksConstruct:str)->bool:
-		if (CheckSubjectId.isOk(idConstruct) and CheckSubjectName.isOk(nameConstruct) and 
-			CheckSubjectMarks.isOk(marksConstruct)):
+		if (CheckSubjectId().isOk(value=idConstruct) and CheckSubjectName().isOk(value=nameConstruct) and 
+			CheckSubjectMarks().isOk(value=marksConstruct)):
 			return True
 		return False
+
 	def do(self, idConstruct:str, nameConstruct:str, marksConstruct:str, uniqueidConstruct:str):
 		if (self.checkDetails(idConstruct, nameConstruct, marksConstruct)):
 			with Database(self.connectorDetail) as con:
@@ -68,10 +74,12 @@ class ConstructManager(DatabaseManagerCheckDetails):
 			Entry(idConstruct, nameConstruct, marksConstruct).clear()
 
 class RetrieveManager(DatabaseManagerCheckDetails):
+
 	def checkDetails(self, idRetrieve:str)->bool:
-		if (CheckSubjectId.isOk(idRetrieve)):
+		if (CheckSubjectId().isOk(value=idRetrieve)):
 			return True
 		return False
+
 	def do(self, idRetrieve, nameRetrieve, marksRetrieve, uniqueidRetrieve):
 		if (self.checkDetails(idRetrieve.get())):
 			with Database(self.connectorDetail) as con:

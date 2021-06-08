@@ -22,7 +22,7 @@ class TreeviewContentShow:
 class MysqlConnect:
 	host:str = "localhost"
 	user:str = "root"
-	passwd:str = "<My SQL password>"
+	passwd:str = "Artificial!18intelligence"
 	database:str = "newDB"
 
 class AuthEmail:
@@ -30,4 +30,6 @@ class AuthEmail:
 	senderPasswd:str = "<Sender Password>"
 	message:str = "OTP for CRUD Machine is {}"
 	OTP:str = ""
+
+UNIQID:str = ""
 	

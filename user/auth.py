@@ -5,7 +5,7 @@ from abc import ABCMeta, abstractstaticmethod
 import shortuuid
 
 # local libraries
-from globals.constants import MysqlConnect, AuthEmail, OTP
+from globals.constants import MysqlConnect, AuthEmail, OTP, UNIQID
 from expr.check import CheckUsername, CheckPassword, CheckEmail, CheckFullname, CheckRePassword, CheckAll, ICheck
 from db.database import Database
 from workspace.otpWindow import OTPwindow
@@ -86,6 +86,7 @@ class AuthRegister(IAuth):
 			if (CheckUsernameExist(MysqlConnect(),"USERS").isOk(username) and 
 				CheckEmailExist(MysqlConnect(),"USERS").isOk(email)):
 				uniqID = shortuuid.uuid(username+password+email)
+				UNIQID = uniqID
 				otpwindow(otp=AuthEmail.OTP)
 				if (OTP.correct):
 					with Database(self.connectorDetail) as con:
