@@ -22,7 +22,7 @@ class TreeviewContentShow:
 class MysqlConnect:
 	host:str = "localhost"
 	user:str = "root"
-	passwd:str = "Artificial!18intelligence"
+	passwd:str = "<My SQL password>"
 	database:str = "newDB"
 
 class AuthEmail:
