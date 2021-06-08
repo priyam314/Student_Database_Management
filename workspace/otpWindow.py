@@ -4,7 +4,7 @@ import tkinter
 
 # locall libraries
 from globals.constants import *
-from check import *
+from expr.check import *
 
 class OTPcheck(ICheck):
 	def __init__(self,entryBox, genOTP):

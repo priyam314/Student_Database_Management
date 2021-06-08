@@ -1,5 +1,5 @@
 # Standard Library Imports
-from tkinter import Frame, Label, Entry, Button
+from tkinter import Frame, Label, Entry, Button, Tk, StringVar
 import tkinter.messagebox as MessageBox
 from tkinter import ttk
 import re
@@ -7,11 +7,8 @@ import smtplib
 import random, math
 from abc import ABCMeta, abstractstaticmethod
 
-# Third Party Libraries
-import mysql.connector as mysql
-
 # Local Libraries
-import workspace.adminWindow
+import workspace.adminWindow as admin
 from globals.constants import *
 from user.auth import AuthLogin, AuthRegister
 
@@ -35,6 +32,12 @@ class EntryWindow:
 		self.s.configure("TNotebook.Tab",background=ButtonColor.background)
 
 		# Utility Variables
+
+		self.username = StringVar()
+		self.password = StringVar()
+		self.fullname = StringVar()
+		self.email    = StringVar()
+		self.repassword = StringVar()
 
 		# self.username 	= ""
 		# self.password 	= ""
@@ -96,11 +99,11 @@ class EntryWindow:
 		# Entry
 
 		self.usernameEntryLogin = Entry(self.tabLogin, font=('bold',10),
-			fg=EntryColor.entryText,bg=EntryColor.background)
+			fg=EntryColor.entryText,bg=EntryColor.background,textvariable=self.username)
 		self.usernameEntryLogin.grid(row=0, column=1, sticky="ewsn",padx=5,pady=29)
 
 		self.passwordEntryLogin = Entry(self.tabLogin, font=('bold',10),
-			fg=EntryColor.entryText,bg=EntryColor.background, show="*")
+			fg=EntryColor.entryText,bg=EntryColor.background, show="*",textvariable=self.password)
 		self.passwordEntryLogin.grid(row=1, column=1, sticky="ewsn",padx=5,pady=5)
 
 		# SIGN UP
@@ -130,23 +133,23 @@ class EntryWindow:
 		# Entry
 
 		self.fullnameEntry = Entry(self.tabSignup, font=('bold',10),
-			fg=EntryColor.entryText,bg=EntryColor.background)
+			fg=EntryColor.entryText,bg=EntryColor.background,textvariable=self.fullname)
 		self.fullnameEntry.grid(row=0, column=1, sticky="ew",padx=5,pady=5)
 
 		self.usernameEntry = Entry(self.tabSignup, font=('bold',10),
-			fg=EntryColor.entryText,bg=EntryColor.background)
+			fg=EntryColor.entryText,bg=EntryColor.background, textvariable=self.username)
 		self.usernameEntry.grid(row=1, column=1, sticky="ew",padx=5,pady=5)
 
 		self.emailEntry = Entry(self.tabSignup, font=('bold',10),
-			fg=EntryColor.entryText,bg=EntryColor.background)
+			fg=EntryColor.entryText,bg=EntryColor.background,textvariable=self.email)
 		self.emailEntry.grid(row=2, column=1, sticky="ew",padx=5,pady=5)
 
 		self.passwordEntry = Entry(self.tabSignup, font=('bold',10),
-			fg=EntryColor.entryText,bg=EntryColor.background, show="*")
+			fg=EntryColor.entryText,bg=EntryColor.background, show="*",textvariable=self.password)
 		self.passwordEntry.grid(row=3, column=1, sticky="ew",padx=5,pady=5)
 
 		self.repasswordEntry = Entry(self.tabSignup, font=('bold',10),
-			fg=EntryColor.entryText,bg=EntryColor.background, show="*")
+			fg=EntryColor.entryText,bg=EntryColor.background, show="*",textvariable=self.repassword)
 		self.repasswordEntry.grid(row=4, column=1, sticky="ew",padx=5,pady=5)
 
 		# Button
@@ -227,10 +230,16 @@ class EntryWindow:
 		currentTab = str(self.tabControl.tab(self.tabControl.select(), "text"))
 		if (currentTab=="Login"):
 			if (AuthLogin(mc).authenticate(
-				username = self.usernameEntryLogin.get(),
-				passwd = self.passwordEntryLogin.get())):
+				username = self.username.get(),
+				passwd = self.password.get())):
 				# initialize workspaceCRUD
-				pass 
+				ifndef = True
+				rootAdmin = Tk()
+				app = admin.AdminWindow(rootAdmin)
+				if ifndef:
+					self.root.destroy()
+					ifndef = False
+				rootAdmin.mainloop()
 
 		else:
 			if (AuthRegister(mc).authenticate(

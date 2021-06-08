@@ -1,5 +1,6 @@
 # Local Library Import
 from globals.constants import MysqlConnect
+import mysql.connector as mysql
 
 class Database:
     def __init__(self, connectorDetail:MysqlConnect):

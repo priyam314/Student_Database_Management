@@ -1,18 +1,21 @@
 # Standard Libraries
-from abc import ABC, abstractstaticmethod
+from abc import ABCMeta, abstractstaticmethod
 
 # Third party libraries
 import shortuuid
 
 # local libraries
 from globals.constants import MysqlConnect, AuthEmail, OTP
-from check import CheckUsername, CheckPassword, CheckEmail, CheckFullname, CheckRePassword, CheckAll, ICheck
+from expr.check import CheckUsername, CheckPassword, CheckEmail, CheckFullname, CheckRePassword, CheckAll, ICheck
 from db.database import Database
 from workspace.otpWindow import OTPwindow
 
-class IAuth(ABC):
+class IAuth(metaclass=ABCMeta):
 	def __init__(self, connectorDetail:MysqlConnect):
-		self.connectorDetail = connectorDetail	
+		self.connectorDetail = connectorDetail
+	@classmethod
+	def __subclasshook__(cls, subclass):
+		return (hasattr(subclass,"authenticate") and callable(subclass.authenticate) or NotImplemented)
 	@abstractstaticmethod
 	def authenticate(self)->bool:
 		pass
@@ -21,16 +24,16 @@ class CheckExist(ICheck):
 	def __init__(self, connectorDetail:MysqlConnect, table:str):
 		self.connectorDetail = connectorDetail
 		self.table = table
-	def isOk(self)->bool:
+	def isOk(self, value:str)->bool:
 		pass
 
 class CheckUsernameExist(CheckExist):
-	def isOk(self, username:str)->bool:
+	def isOk(self, value:str)->bool:
 		with Database(self.connectorDetail) as con:
 			cursor = con.cursor()
 			cursor.execute(
 				"SELECT * FROM {}.{} WHERE USERNAME='{}';"
-				.format(self.connectorDetail.database, table, username))
+				.format(self.connectorDetail.database, table, value))
 			row = cursor.fetchmany(size=1)
 			if (len(row)>0):
 				MessageBox.showinfo("SignUp Status","Username already exist")
@@ -38,12 +41,12 @@ class CheckUsernameExist(CheckExist):
 			return True
 
 class CheckEmailExist(ICheck):
-	def isOk(self, email:str)->bool:
+	def isOk(self, value:str)->bool:
 		with Database(self.connectorDetail) as con:
 			cursor = con.cursor()
 			cursor.execute(
 				"SELECT * FROM {}.{} WHERE EMAIL='{}';"
-				.format(self.connectorDetail.database, table, email))
+				.format(self.connectorDetail.database, table, value))
 			row = cursor.fetchmany(size=1)
 			if (len(row)>0):
 				MessageBox.showinfo("SignUp Status","Email already exist")
@@ -52,7 +55,7 @@ class CheckEmailExist(ICheck):
 
 class AuthLogin(IAuth):
 	def authenticate(self, username:str, passwd:str)->bool:
-		if (CheckAll.isOk(CheckUsername.isOk(username),CheckPassword.isOk(passwd))):
+		if (CheckAll().isOk(CheckUsername().isOk(value=username),CheckPassword().isOk(value=passwd))):
 			with Database(self.connectorDetail) as con:
 				cursor = con.cursor()
 				cursor.execute(
@@ -77,8 +80,8 @@ def otpwindow(otp):
 class AuthRegister(IAuth):
 	def authenticate(self, fullname:str, username:str, email:str, passwd:str, repasswd:str)->bool:
 		if (CheckAll.isOk(
-			CheckFullname.isOk(fullname), CheckPassword.isOk(passwd),CheckUsername.isOk(username),
-			CheckEmail.isOk(email), CheckRePassword.isOk(repasswd) 
+			CheckFullname.isOk(fullname=fullname), CheckPassword.isOk(password=passwd),CheckUsername.isOk(username=username),
+			CheckEmail.isOk(email=email), CheckRePassword.isOk(repassword=repasswd) 
 			)):
 			if (CheckUsernameExist(MysqlConnect(),"USERS").isOk(username) and 
 				CheckEmailExist(MysqlConnect(),"USERS").isOk(email)):

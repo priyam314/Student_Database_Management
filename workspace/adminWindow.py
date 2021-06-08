@@ -13,7 +13,7 @@ from db.databasemanager import UpdateManager, DestructManager, ConstructManager,
 
 myConnect = MysqlConnect()
 
-class WorkspaceAdmin:
+class AdminWindow:
     def __init__(self,root,uniqid):
 
         # configure window
