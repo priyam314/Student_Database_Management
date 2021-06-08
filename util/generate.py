@@ -1,6 +1,6 @@
-from abc import ABCMeta, abstractstaticmethod
+from abc import ABC, abstractstaticmethod
 
-class IGenerator(meta=ABCMeta):
+class IGenerator(ABC):
 	@abstractstaticmethod
 	def generate(self):
 		pass

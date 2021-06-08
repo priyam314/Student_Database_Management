@@ -1,5 +1,5 @@
 # Standard Library Imports
-from abc import ABCMeta, abstractstaticmethod
+from abc import ABC, abstractstaticmethod
 import tkinter.messagebox as MessageBox
 from smtplib import SMTP
 
@@ -7,7 +7,7 @@ from smtplib import SMTP
 from util.generate import OTP
 from globals.constants import MysqlConnect
 
-class ICheck(meta=ABCMeta):
+class ICheck(ABC):
 	@abstractstaticmethod
 	def isOk(self):
 		pass
@@ -49,6 +49,9 @@ class CheckFullname(ICheck):
 	def isOk(self, fullname:str)->bool:
 		if ("".join(fullname.split(" ")).isalpha()==False):
 			MessageBox.showinfo("Fullname status","Only alphabests are allowed")
+			return False
+		elif (fullname==""):
+			MessageBox.showinfo("Fullname status","Fullname field cannot be remained empty")
 			return False
 		return True
 

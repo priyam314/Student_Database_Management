@@ -1,16 +1,16 @@
 # Standard Libraries
-from abc import ABCMeta, abstractstaticmethod
+from abc import ABC, abstractstaticmethod
 
 # Third party libraries
 import shortuuid
 
 # local libraries
-from constants import MysqlConnect, AuthEmail, OTP
+from globals.constants import MysqlConnect, AuthEmail, OTP
 from check import CheckUsername, CheckPassword, CheckEmail, CheckFullname, CheckRePassword, CheckAll, ICheck
-from database import Database
-from OTPwindow import OTPwindow
+from db.database import Database
+from workspace.otpWindow import OTPwindow
 
-class IAuth(meta=ABCMeta):
+class IAuth(ABC):
 	def __init__(self, connectorDetail:MysqlConnect):
 		self.connectorDetail = connectorDetail	
 	@abstractstaticmethod
@@ -74,7 +74,7 @@ def otpwindow(otp):
 	toplevel=OTPwindow(root=top,otp=otp)
 	top.mainloop()	
 
-class AuthRegister(IAuthMain):
+class AuthRegister(IAuth):
 	def authenticate(self, fullname:str, username:str, email:str, passwd:str, repasswd:str)->bool:
 		if (CheckAll.isOk(
 			CheckFullname.isOk(fullname), CheckPassword.isOk(passwd),CheckUsername.isOk(username),

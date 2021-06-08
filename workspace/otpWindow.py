@@ -1,6 +1,9 @@
+# Standard libraries
 from tkinter import Frame, Entry, Button
 import tkinter
-from contants import *
+
+# locall libraries
+from globals.constants import *
 from check import *
 
 class OTPcheck(ICheck):
