@@ -1,5 +1,5 @@
 # Standard Library Imports
-from tkinter import LabelFrame, Label, Entry, Button
+from tkinter import LabelFrame, Label, Entry, Button, StringVar
 from tkinter import ttk
 import tkinter.messagebox as MessageBox
 
@@ -26,9 +26,9 @@ class AdminWindow:
 
         # Utility Variables
 
-        # self.Id = ""
-        # self.Name = ""
-        # self.Number = ""
+        self.Id = StringVar()
+        self.Name = StringVar()
+        self.Number = StringVar()
         self.uniqid = uniqid
 
         # LabelFrames
@@ -86,15 +86,18 @@ class AdminWindow:
         # Entry
 
         self.e_ID = Entry(self.searchFrame,bg=EntryColor.background,
-            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,font=('bold'))
+            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,
+            textvariable=self.Id,font=('bold'))
         self.e_ID.grid(row=0, column=1,pady=5,padx=5)
 
         self.e_NAME = Entry(self.searchFrame,bg=EntryColor.background,
-            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,font=('bold'))
+            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,
+            textvariable=self.Name,font=('bold'))
         self.e_NAME.grid(row=1, column=1,pady=5,padx=5)
 
         self.e_NUMBER = Entry(self.searchFrame,bg=EntryColor.background,
-            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,font=('bold'))
+            highlightcolor=EntryColor.highlight,fg=EntryColor.entryText,
+            textvariable=self.Number,font=('bold'))
         self.e_NUMBER.grid(row=2, column=1,pady=5,padx=5)
 
         # Buttons
@@ -127,85 +130,7 @@ class AdminWindow:
             uniqueidDestructAll=self.uniqid),width=6).grid(
             row=0,column=4,sticky="nswe",pady=5,padx=5)
             
-    # def getRow(self):
-    #     self.Id = self.e_ID.get()
-    #     self.Name = self.e_NAME.get()
-    #     self.Number = self.e_NUMBER.get()
-
-    # def checkAll(self, messageStatus, message):
-    #     if (self.Id == "" or self.Name == "" or self.Number == ""):
-    #         MessageBox.showinfo(messageStatus, message)
-    #         return 0
-    #     return 1
-
-    # def checkID(self, messageStatus, message):
-    #     if (self.e_ID.get() == ""):
-    #         MessageBox.showinfo(messageStatus, message)
-    #         return 0
-    #     return 1
-
-    # def clearFields(self):
-    #     self.e_ID.delete(0, 'end')
-    #     self.e_NAME.delete(0, 'end')
-    #     self.e_NUMBER.delete(0, 'end')
-
-    # def insertFunc(self):
-    #     self.getRow()
-    #     if (self.checkAll("insert status", "all fields are required")):
-    #         with Database() as con:
-    #             cursor=con.cursor()
-    #             cursor.execute("INSERT INTO newDB.STUDENTS VALUES({},'{}',{},'{}');".format(self.Id,self.Name,self.Number,self.uniqid))
-    #             cursor.execute("COMMIT;")
-    #         self.clearFields()
-    #         MessageBox.showinfo("Insert Status", "Inserted Successfully")
-    #         TreeviewContent(host="localhost",user="root",passwd="Artificial!18intelligence",database="newDB").show(Object=self.treeFrame,uniqueId=self.uniqid)
-
-    # def deleteFunc(self):
-    #     if (self.checkID("Delete Status", "ID is compulsory to delete")):
-    #         with Database() as con:
-    #             cursor = con.cursor()
-    #             cursor.execute("DELETE FROM newDB.STUDENTS WHERE ID={} AND UNIQUEID='{}';".format(self.e_ID.get(),str(self.uniqid)))
-    #             cursor.execute("COMMIT;")
-    #         self.clearFields()
-    #         MessageBox.showinfo("Delete Status", "Deleted Successfully")
-    #         # self.show()
-    #         TreeviewContent(host="localhost",user="root",passwd="Artificial!18intelligence",database="newDB").show(Object=self.treeFrame,uniqueId=self.uniqid)
-
-    # def deleteallFunc(self):
-    #     with Database() as con:
-    #         cursor = con.cursor()
-    #         cursor.execute("DELETE FROM newDB.STUDENTS WHERE UNIQUEID='{}';".format(str(self.uniqid)))
-    #         cursor.execute("COMMIT;")
-    #     self.clearFields()
-    #     MessageBox.showinfo("Delete Status", "Deleted Successfully")
-    #     # self.show()
-    #     TreeviewContent(host="localhost",user="root",passwd="Artificial!18intelligence",database="newDB").show(Object=self.treeFrame,uniqueId=self.uniqid)
-
-    # def updateFunc(self):
-    #     self.getRow()
-    #     if (self.checkAll("update status", "ID and (Name or Number) field is required")):
-    #         with Database() as con:
-    #             cursor = con.cursor()
-    #             cursor.execute("UPDATE newDB.STUDENTS SET NAME='{}',MARKS={} WHERE ID={} AND UNIQUEID='{}';".format(self.Name,self.Number,self.Id,str(self.uniqid)))
-    #             cursor.execute("COMMIT;")
-    #         self.clearFields()
-    #         MessageBox.showinfo("Update Status", "Updated Successfully")
-    #         # self.show()
-    #         TreeviewContent(host="localhost",user="root",passwd="Artificial!18intelligence",database="newDB").show(Object=self.treeFrame,uniqueId=self.uniqid)
-
-    # def getFunc(self):
-    #     if (self.checkID("get Status", "ID is compulsory to fetch")):
-    #         with Database() as con:
-    #             cursor=con.cursor()
-    #             cursor.execute("SELECT * FROM newDB.STUDENTS WHERE ID={} AND UNIQUEID='{}';".format(self.e_ID.get(),str(self.uniqid)))
-    #             rows = cursor.fetchmany(size=1)
-    #             self.clearFields()
-    #             for row in rows:
-    #                 self.e_ID.insert(0, row[0])
-    #                 self.e_NAME.insert(0, row[1])
-    #                 self.e_NUMBER.insert(0, row[2])
-    #         MessageBox.showinfo("get Status", "fetched Successfully")
-
+            
 class TreeviewContent:
     def __init__(self, connectorDetail:MysqlConnect):
         self.connectorDetail:MysqlConnect = connectorDetail

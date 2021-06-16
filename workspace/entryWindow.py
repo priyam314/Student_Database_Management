@@ -23,7 +23,7 @@ class EntryWindow:
 	LOGIN Workflow
 		- username,password (@Compulsory fields,Not Null)
 		- The following variables with MySqlConnect object is passed to AuthLogin
-			
+
 		- check class does grammer check to verify both are in correct format
 
 
@@ -51,12 +51,6 @@ class EntryWindow:
 		self.fullname = StringVar()
 		self.email    = StringVar()
 		self.repassword = StringVar()
-
-		# self.username 	= ""
-		# self.password 	= ""
-		# self.fullname 	= ""
-		# self.email 	  	= ""
-		# self.repassword = ""
 
 		# Frames
 
@@ -172,72 +166,6 @@ class EntryWindow:
 		self.submitButton.grid(padx=10,pady=10)
 
 	# Methods
-
-	# def getLoginEntries(self):
-	# 	self.username = self.usernameEntryLogin.get()
-	# 	self.password = self.passwordEntryLogin.get()
-
-	# def getSignUpEntries(self):
-	# 	self.fullname = str(self.fullnameEntry.get())
-	# 	self.username = str(self.usernameEntry.get())
-	# 	self.email = str(self.emailEntry.get())
-	# 	self.password = str(self.passwordEntry.get())
-	# 	self.repassword = str(self.repasswordEntry.get())
-
-	# def submitLOGIN(self):
-	# 	self.getLoginEntries()
-	# 	if (self.username=="" or self.password==""):
-	# 			MessageBox.showinfo("Login status Error","All the fields are required")
-	# 	else:
-	# 		with Database() as con:
-	# 			cursor = con.cursor()
-	# 			cursor.execute("SELECT * FROM newDB.USERS where USERNAME='{}'".format(str(self.username)))
-	# 			row = cursor.fetchmany(size=1)
-	# 			try:
-	# 				if (str(row[0][1])==str(self.password)):
-	# 					self.root.destroy()
-	# 					newroot = Tk()
-	# 					app = CRUD.App(newroot,str(row[0][4]))
-	# 					newroot.mainloop()
-	# 				else:
-	# 					MessageBox.showinfo("Login Status","Either Password or Username is wrong")
-	# 			except IndexError:
-	# 				MessageBox.showinfo("Login Status","User not found")
-
-	# def clearFields(self):
-	# 	self.usernameEntry.delete("1.0", 'end')
-	# 	self.fullnameEntry.delete("1.0", 'end')
-	# 	self.emailEntry.delete("1.0", 'end')
-	# 	self.passwordEntry.delete("1.0", 'end')
-	# 	self.repasswordEntry.delete("1.0", 'end')
-
-	# def submitSIGNUP(self):
-	# 	self.getSignUpEntries()
-	# 	root.destroy()
-	# 	if (self.fullname=="" or self.username=="" or self.email=="" or 
-	# 		self.password=="" or self.repassword==""):
-	# 		MessageBox.showinfo("Signup status Error","All the fields are required")
-	# 	else:
-	# 		if (self.checkAll(self.username,self.fullname,self.email,self.password,self.repassword)):
-	# 			uniqID = shortuuid.uuid(str(self.username)+str(self.password)+str(self.email))
-	# 			otpwindow()
-	# 			with Database() as con:
-	# 				cursor = con.cursor()
-	# 				try:
-	# 					if(Login.otpBOOL==True):
-	# 						cursor.execute("INSERT INTO newDB.USERS VALUES('{}','{}','{}','{}','{}');".format(
-	# 							str(self.username),str(self.password),str(self.fullname),str(self.email),str(uniqID)))
-	# 						cursor.execute("COMMIT;")
-	# 						print("first done")
-	# 						cursor.execute("INSERT INTO newDB.STUDENTS VALUES({},'{}',{},'{}');".format(1,"update me",0,str(uniqID)))
-	# 						cursor.execute("COMMIT;")
-	# 						print("second done")
-	# 					else:
-	# 						print("abhi nhi hua")
-	# 				except:
-	# 					print("its error")
-
-	# 			print("done")
 					
 	def Submit(self):
 		currentTab = str(self.tabControl.tab(self.tabControl.select(), "text"))
@@ -265,64 +193,5 @@ class EntryWindow:
 				# initialize workspaceCRUD
 				pass
 
-	# def checkUsername(self, username):
-	# 	if (any(i in username for i in "!@#$%^&*()_+=-`~,./';<>?: ")):
-	# 		MessageBox.showinfo("Username status","Character(s) are not allowed")
-	# 		return 0
-	# 	if (any(c.isalpha() for c in username)==False):
-	# 		MessageBox.showinfo("Username status","Alphabest(s) mandatory in Username")
-	# 		return 0
-	# 	return 1
-	# def checkFullname(self, fullname):
-	# 	if ("".join(fullname.split(" ")).isalpha()==False):
-	# 		MessageBox.showinfo("Fullname status","Only alphabests are allowed")
-	# 		return 0
-	# 	return 1
-	# def checkEmail(self,email):
-	# 	pattern = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")
-	# 	if (not bool(re.match(pattern,str(email)))):
-	# 		MessageBox.showinfo("Email Status","Email has invalid format")
-	# 		return 0
-	# 	senderEmail = "pg7176@srmist.edu.in"
-	# 	receiverEmail = str(email)
-	# 	senderPassword = "Artificial!18"
-	# 	Login.aOTP = str(generateOTP())
-	# 	message = """
-	# 				This message from CRUD Machine
-	# 				Your OTP is {}
-	# 	""".format(OTP.generate())
-	# 	server = smtplib.SMTP('smtp.gmail.com',587)
-	# 	server.starttls()
-	# 	server.login(senderEmail,senderPassword)
-	# 	server.sendmail(senderEmail, receiverEmail, message)
-	# 	server.quit()
-	# 	return 1	
-	# def checkPassword(self, password):
-	# 	if (len(password)<=8):
-	# 		MessageBox.showinfo("Password Status","Password should contain more than 8 characters")
-	# 		return 0
-	# 	return 1
-	# def checkRePassword(self,repassword,password):
-	# 	if (repassword!=password):
-	# 		MessageBox.showinfo("RePassword Status","Re-Password is different than Password")
-	# 		return 0
-	# 	return 1
-
-	# def checkAll(self,username,fullname,email,password,repassword):
-	# 	if (self.checkFullname(fullname and
-	# 		self.checkUsername(username) and
-	# 		self.checkEmail(email)	and
-	# 		self.checkPassword(password) and
-	# 		self.checkRePassword(repassword,password))):
-	# 		return 1
-	# 	return 0
-				
-# def generateOTP():
-# 	string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-# 	OTP = ""
-# 	length = len(string)
-# 	for i in range(5) :
-# 	    OTP += string[math.floor(random.random() * length)]
-# 	return OTP
-
+	
 
