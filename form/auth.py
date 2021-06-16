@@ -5,7 +5,7 @@ from abc import ABCMeta, abstractstaticmethod
 import shortuuid
 
 # local libraries
-from globals.constants import MysqlConnect, AuthEmail, OTP, UNIQID
+from constants import MysqlConnect, AuthEmail, OTP, UNIQID
 from expr.check import CheckUsername, CheckPassword, CheckEmail, CheckFullname, CheckRePassword, CheckAll, ICheck
 from db.database import Database
 from workspace.otpWindow import OTPwindow

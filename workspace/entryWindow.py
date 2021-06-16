@@ -1,4 +1,4 @@
-# Standard Library Imports
+## Standard Library Imports
 from tkinter import Frame, Label, Entry, Button, Tk, StringVar
 import tkinter.messagebox as MessageBox
 from tkinter import ttk
@@ -7,14 +7,27 @@ import smtplib
 import random, math
 from abc import ABCMeta, abstractstaticmethod
 
-# Local Libraries
+## Local Libraries
 import workspace.adminWindow as admin
 from constants import *
 from form.auth import AuthLogin, AuthRegister
 
-mc = MysqlConnect()
+mc = MysqlConnect()     
 
 class EntryWindow:
+	"""
+	EntryWindow is the first window that will appear after main.py 
+	will execute. This window contains form, for login, signup of 
+	existing or new users respectively. 
+
+	LOGIN Workflow
+		- username,password (@Compulsory fields,Not Null)
+		- The following variables with MySqlConnect object is passed to AuthLogin
+			
+		- check class does grammer check to verify both are in correct format
+
+
+	"""
 	def __init__(self,root):
 
 		# configure window
