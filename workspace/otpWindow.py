@@ -3,7 +3,7 @@ from tkinter import Frame, Entry, Button
 import tkinter
 
 # locall libraries
-from globals.constants import *
+from constants import *
 from expr.check import *
 
 class OTPcheck(ICheck):

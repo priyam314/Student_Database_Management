@@ -1,6 +1,9 @@
 # Standard Library Imports
 from dataclasses import dataclass
 
+# third party libraries
+from decouple import config
+
 class BackgroundColor:
 	background:str = "#f6f4d2"
 
@@ -20,10 +23,10 @@ class TreeviewContentShow:
 
 @dataclass
 class MysqlConnect:
-	host:str = "localhost"
-	user:str = "root"
-	passwd:str = "Artificial!18intelligence"
-	database:str = "newDB"
+	host:str = config("HOST")
+	user:str = config("USER")
+	passwd:str = config("PASSWD")
+	database:str = config("DB")
 
 class AuthEmail:
 	senderEmail:str = "<Sender Email>"

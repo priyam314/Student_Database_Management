@@ -5,7 +5,7 @@ from smtplib import SMTP
 
 # Local libraries
 from util.generate import OTP
-from globals.constants import MysqlConnect
+from constants import MysqlConnect
 
 class ICheck(ABC):
 	@abstractstaticmethod

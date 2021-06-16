@@ -7,7 +7,7 @@ import tkinter.messagebox as MessageBox
 import mysql.connector as mysql
 
 # Local Libraries
-from globals.constants import *
+from constants import *
 from db.database import Database
 from db.res import UpdateManager, DestructManager, ConstructManager, RetrieveManager, DestructAllManager
 

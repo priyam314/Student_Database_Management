@@ -4,7 +4,7 @@ import tkinter.messagebox as MessageBox
 
 # Local Libraries
 from util.clear import Entry
-from globals.constants import MysqlConnect
+from constants import MysqlConnect
 from expr.check import CheckSubjectName, CheckSubjectMarks, CheckSubjectId
 from db.database import Database
 

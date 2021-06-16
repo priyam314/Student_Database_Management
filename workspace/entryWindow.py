@@ -9,7 +9,7 @@ from abc import ABCMeta, abstractstaticmethod
 
 # Local Libraries
 import workspace.adminWindow as admin
-from globals.constants import *
+from constants import *
 from form.auth import AuthLogin, AuthRegister
 
 mc = MysqlConnect()

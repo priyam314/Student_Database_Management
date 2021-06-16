@@ -1,5 +1,5 @@
 # Local Library Import
-from globals.constants import MysqlConnect
+from constants import MysqlConnect
 import mysql.connector as mysql
 
 class Database:
