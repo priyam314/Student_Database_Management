@@ -24,7 +24,7 @@ class TreeviewContentShow:
 @dataclass
 class MysqlConnect:
 	host:str = config("HOST")
-	user:str = config("USER")
+	user:str = config("USR")
 	passwd:str = config("PASSWD")
 	database:str = config("DB")
 

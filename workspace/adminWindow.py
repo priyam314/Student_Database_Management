@@ -9,7 +9,7 @@ import mysql.connector as mysql
 # Local Libraries
 from constants import *
 from db.database import Database
-from db.res import UpdateManager, DestructManager, ConstructManager, RetrieveManager, DestructAllManager
+from db.req import UpdateManager, DestructManager, ConstructManager, RetrieveManager, DestructAllManager
 
 myConnect = MysqlConnect()
 

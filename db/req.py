@@ -3,7 +3,7 @@ from abc import ABC, abstractstaticmethod
 import tkinter.messagebox as MessageBox
 
 # Local Libraries
-from util.clear import Entry
+from util.clear import Form
 from constants import MysqlConnect
 from expr.check import CheckSubjectName, CheckSubjectMarks, CheckSubjectId
 from db.database import Database
@@ -71,7 +71,7 @@ class ConstructManager(DatabaseManagerCheckDetails):
 					.format(self.connectorDetail.database,idConstruct,nameConstruct,marksConstruct,uniqueidConstruct))
 				cursor.execute("COMMIT;")
 			MessageBox.showinfo("Insert Status","Inserted Successfully")
-			Entry(idConstruct, nameConstruct, marksConstruct).clear()
+			Form(idConstruct, nameConstruct, marksConstruct).clear()
 
 class RetrieveManager(DatabaseManagerCheckDetails):
 
