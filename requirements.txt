@@ -1,6 +1,8 @@
 dotenv-python==0.0.1
+greenlet==1.1.0
 mysql-connector-python==8.0.25
 protobuf==3.17.2
 python-decouple==3.4
 shortuuid==1.0.1
 six==1.16.0
+SQLAlchemy==1.4.20
