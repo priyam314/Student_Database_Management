@@ -8,19 +8,20 @@ from util.generate import OTP
 from constants import MysqlConnect
 
 class ICheck(ABC):
-	@abstractstaticmethod
-	def isOk(self, value:str):
+	#@abstractstaticmethod
+	@classmethod
+	def isOk(value:str):
 		pass
 
 class CheckSubjectName(ICheck):
-	def isOk(self, value:str)->bool:
+	def isOk(value:str)->bool:
 		if (value==""):
 			MessageBox.showinfo("Subject Status","Subject field cannot be empty")
 			return False
 		return True
 
 class CheckSubjectMarks(ICheck):
-	def isOk(self, value:str)->bool:
+	def isOk(value:str)->bool:
 		if (int(value)>100 or int(value)<0):
 			MessageBox.showinfo("Marks Status","Marks cannot be either less than 0 or more than 100")
 			return False
@@ -30,13 +31,14 @@ class CheckSubjectMarks(ICheck):
 		return True
 
 class CheckSubjectId(ICheck):
-	def isOk(self, value:str)->bool:
+	def isOk(value:str)->bool:
 		if (value==""):
 			MessageBox.showinfo("Id Status","Id field is required")
 			return False
 		return True
+
 class CheckUsername(ICheck):
-	def isOk(self,value:str)->bool:
+	def isOk(value:str)->bool:
 		if (any(i in value for i in "!@#$%^&*()_+=-`~,./';<>?: ")):
 			MessageBox.showinfo("Username status","Character(s) are not allowed")
 			return False
@@ -46,7 +48,7 @@ class CheckUsername(ICheck):
 		return True
 
 class CheckFullname(ICheck):
-	def isOk(self,value:str)->bool:
+	def isOk(value:str)->bool:
 		if ("".join(value.split(" ")).isalpha()==False):
 			MessageBox.showinfo("Fullname status","Only alphabests are allowed")
 			return False
@@ -56,21 +58,21 @@ class CheckFullname(ICheck):
 		return True
 
 class CheckPassword(ICheck):
-	def isOk(self, value:str)->bool:
+	def isOk(value:str)->bool:
 		if (len(value)<=8):
 			MessageBox.showinfo("Password Status","Password should contain more than 8 characters")
 			return False
 		return True
 
 class CheckRePassword(ICheck):
-	def isOk(self, password:str, repassword:str)->bool:
+	def isOk(password:str, repassword:str)->bool:
 		if (repassword!=password):
 			MessageBox.showinfo("RePassword Status","Re-Password is different than Password")
 			return False
 		return True
 
 class CheckEmail(ICheck):
-	def isOk(self, value:str)->bool:
+	def isOk(value:str)->bool:
 		pattern = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")
 		if (not bool(re.match(pattern,value))):
 			MessageBox.showinfo("Email Status","Email has invalid format")
@@ -96,7 +98,7 @@ class CheckEmail(ICheck):
 			return True
 
 class CheckAll(ICheck):
-	def isOk(self,*args)->bool:
+	def isOk(*args)->bool:
 		return all(args)
 
 

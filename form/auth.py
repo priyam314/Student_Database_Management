@@ -1,5 +1,6 @@
 # Standard Libraries
 from abc import ABCMeta, abstractstaticmethod
+import tkinter.messagebox as MessageBox
 
 # Third party libraries
 import shortuuid
@@ -24,11 +25,11 @@ class CheckExist(ICheck):
 	def __init__(self, connectorDetail:MysqlConnect, table:str):
 		self.connectorDetail = connectorDetail
 		self.table = table
-	def isOk(self, value:str)->bool:
+	def isOk(value:str)->bool:
 		pass
 
 class CheckUsernameExist(CheckExist):
-	def isOk(self, value:str)->bool:
+	def isOk(value:str)->bool:
 		with Database(self.connectorDetail) as con:
 			cursor = con.cursor()
 			cursor.execute(
@@ -41,7 +42,7 @@ class CheckUsernameExist(CheckExist):
 			return True
 
 class CheckEmailExist(ICheck):
-	def isOk(self, value:str)->bool:
+	def isOk(value:str)->bool:
 		with Database(self.connectorDetail) as con:
 			cursor = con.cursor()
 			cursor.execute(
@@ -54,8 +55,9 @@ class CheckEmailExist(ICheck):
 			return True
 
 class AuthLogin(IAuth):
-	def authenticate(self, username:str, passwd:str)->bool:
-		if (CheckAll().isOk(CheckUsername().isOk(value=username),CheckPassword().isOk(value=passwd))):
+	def authenticate(self, username:str, password:str)->bool:
+		if (CheckAll.isOk(CheckUsername.isOk(value=username),
+						   CheckPassword.isOk(value=password))):
 			with Database(self.connectorDetail) as con:
 				cursor = con.cursor()
 				cursor.execute(
@@ -63,7 +65,7 @@ class AuthLogin(IAuth):
 					.format(self.connectorDetail.database,username))
 				row = cursor.fetchmany(size=1)
 				try:
-					if (str(row[0][1])==str(passwd)):
+					if (str(row[0][1])==str(password)):
 						return True
 					else:
 						MessageBox.showinfo("Login Status","Either Password or Username is wrong")

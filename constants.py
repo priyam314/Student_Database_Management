@@ -28,6 +28,7 @@ class MysqlConnect:
 	passwd:str = config("PASSWD")
 	database:str = config("DB")
 
+
 class AuthEmail:
 	senderEmail:str = "<Sender Email>"
 	senderPasswd:str = "<Sender Password>"
